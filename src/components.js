@@ -362,59 +362,51 @@ export default function(editor, opt = {}) {
   });
 
 
-
-
-
   domc.addType('button', {
-    model: defaultModel.extend({
+    extend: defaultModel,
+    isComponent: el => el.tagName == 'BUTTON',
+
+    model: {
       defaults: {
-        ...inputModel.prototype.defaults,
-        name: c.labelButtonName,
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2m0 2v14H5V5h14z"></path></svg>`,
         tagName: 'button',
-        traits: [{
-          type: 'content',
-          label: 'Text',
-          placeholder: 'eg. Button Text here'
-        },{
-          label: c.labelTraitType,
-          type: 'select',
-          name: 'type',
-          options: [
-            {value: 'submit', name: c.labelTypeSubmit},
-            {value: 'reset', name: c.labelTypeReset},
-            {value: 'button', name: c.labelTypeButton},
-          ]
+        attributes: { type: 'button' },
+        text: 'Send',
+        traits: [
+          {
+            name: 'text',
+            changeProp: true,
+          }, {
+            type: 'select',
+            name: 'type',
+            options: [
+              { value: 'button' },
+              { value: 'submit' },
+              { value: 'reset' },
+            ]
         }]
-      },
-    }, {
-      isComponent(el) {
-        if(el.tagName == 'BUTTON'){
-          return {type: 'button'};
-        }
-      },
-    }),
-    view: defaultView.extend({
-      events: {
-        'click': 'handleClick'
       },
 
       init() {
-        this.listenTo(this.model, 'change:content', this.updateContent);
+        const comps = this.components();
+        const tChild =  comps.length === 1 && comps.models[0];
+        const chCnt = (tChild && tChild.is('textnode') && tChild.get('content')) || '';
+        const text = chCnt || this.get('text');
+        this.set({ text });
+        this.on('change:text', this.__onTextChange);
+        (text !== chCnt) && this.__onTextChange();
       },
 
-      updateContent() {
-        this.el.innerHTML = this.model.get('content')
+      __onTextChange() {
+        this.components(this.get('text'));
       },
+    },
 
-      handleClick(e) {
-        e.preventDefault();
+    view: {
+      events: {
+        click: e => e.preventDefault(),
       },
-    }),
+    },
   });
-
-
-
 
 
   // LABEL

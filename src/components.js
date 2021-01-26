@@ -11,6 +11,8 @@ export default function(editor, opt = {}) {
   let stateNormal = 'Normal';
   let stateSuccess = 'Success';
   let stateError = 'Error';
+  let formMsgSuccess = 'Thanks! We received your request'
+  let formMsgError = 'An error occurred on processing your request, try again!'
 
   const idTrait = {
     name: 'id',
@@ -66,8 +68,15 @@ export default function(editor, opt = {}) {
       defaults: {
         ...defaultModel.prototype.defaults,
         droppable: ':not(form)',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2m0 2v14H5V5h14z"></path></svg>`,
+        attributes: { method: 'post', 'data-redirect': "" },
+        redirect: 'page',
         draggable: ':not(form)',
         traits: [{
+          label: c.labelTraitdefaultName,
+          placeholder: 'eg. Top Form',
+          name: 'name',
+        },{
           type: 'select',
           label: c.labelTraitMethod,
           name: 'method',
@@ -78,7 +87,8 @@ export default function(editor, opt = {}) {
         },{
           label: c.labelTraitAction,
           name: 'action',
-        }/*,{
+          placeholder: 'Webbuilder',
+        },{
           type: 'select',
           label: c.labelTraitState,
           name: 'formState',
@@ -88,7 +98,7 @@ export default function(editor, opt = {}) {
             {value: 'success', name: c.labelStateSuccess},
             {value: 'error', name: c.labelStateError},
           ]
-        }*/],
+        }],
       },
 
       init() {
@@ -155,7 +165,7 @@ export default function(editor, opt = {}) {
             removable: false,
             copyable: false,
             draggable: false,
-            attributes: {'data-form-state': st},
+            attributes: {'data-form-state': st, 'class': 'state-' + st},
             content: contentStr,
           });
         }
@@ -189,6 +199,7 @@ export default function(editor, opt = {}) {
         ...defaultModel.prototype.defaults,
         name: c.labelInputName,
         tagName: 'input',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2m0 2v14H5V5h14z"></path></svg>`,
         draggable: 'form, form *',
         droppable: false,
         traits: [
@@ -229,6 +240,7 @@ export default function(editor, opt = {}) {
       defaults: {
         ...inputModel.prototype.defaults,
         name: c.labelTextareaName,
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2m0 2v14H5V5h14z"></path></svg>`,
         tagName: 'textarea',
         traits: [
           nameTrait,
@@ -257,6 +269,7 @@ export default function(editor, opt = {}) {
         ...inputModel.prototype.defaults,
         name: c.labelSelectName,
         tagName: 'select',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2m0 2v14H5V5h14z"></path></svg>`,
         traits: [
           nameTrait, {
             label: c.labelTraitOptions,
@@ -285,6 +298,7 @@ export default function(editor, opt = {}) {
       defaults: {
         ...inputModel.prototype.defaults,
         name: c.labelCheckboxName,
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2m0 2v14H5V5h14z"></path></svg>`,
         copyable: false,
         attributes: {type: 'checkbox'},
         traits: [
@@ -333,6 +347,7 @@ export default function(editor, opt = {}) {
      model: checkType.model.extend({
        defaults: {
          ...checkType.model.prototype.defaults,
+         icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2m0 2v14H5V5h14z"></path></svg>`,
          name: c.labelRadioName,
          attributes: {type: 'radio'},
        },
@@ -355,10 +370,12 @@ export default function(editor, opt = {}) {
       defaults: {
         ...inputModel.prototype.defaults,
         name: c.labelButtonName,
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2m0 2v14H5V5h14z"></path></svg>`,
         tagName: 'button',
         traits: [{
           type: 'content',
           label: 'Text',
+          placeholder: 'eg. Button Text here'
         },{
           label: c.labelTraitType,
           type: 'select',
@@ -405,6 +422,7 @@ export default function(editor, opt = {}) {
     model: textModel.extend({
       defaults: {
         ...textModel.prototype.defaults,
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2m0 2v14H5V5h14z"></path></svg>`,
         name: c.labelNameLabel,
         tagName: 'label',
         traits: [forTrait],
@@ -417,5 +435,15 @@ export default function(editor, opt = {}) {
       },
     }),
     view: textView,
+  });
+
+
+  // form group
+  domc.addType('form group', {
+    model: {
+      defaults: {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2m0 2v14H5V5h14z"></path></svg>`,
+      },
+    }
   });
 }

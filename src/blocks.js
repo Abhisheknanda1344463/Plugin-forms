@@ -1,4 +1,4 @@
-export default function (editor, opt = {}) {
+  export default function (editor, opt = {}) {
   const c = opt;
   let bm = editor.BlockManager;
 
@@ -14,26 +14,30 @@ export default function (editor, opt = {}) {
       category: c.category,
       content: `
         <form class="form">
-          <div class="form-group">
+          <div class="form-group" data-gjs-type="form group">
             <label class="label">Name</label>
-            <input placeholder="Type here your name" class="input"/>
+            <input type="text" placeholder="Type your name here" name="firstname" class="input"/>
           </div>
-          <div class="form-group">
+          <div class="form-group" data-gjs-type="form group">
             <label class="label">Email</label>
-            <input type="email" placeholder="Type here your email" class="input"/>
+            <input type="email" placeholder="Type your email here" name="email" class="input"/>
           </div>
-          <div class="form-group">
+          <div class="form-group" data-gjs-type="form group">
+            <label class="label">Options</label>
+            <select type="text" name="options" class="select"><option value="1">Option 1</option><option value="2">Option 2</option><option value="3">Option 3</option></select>
+          </div>
+          <div class="form-group" data-gjs-type="form group">
             <label class="label">Gender</label>
-            <input type="checkbox" class="checkbox" value="M">
-            <label class="checkbox-label">M</label>
-            <input type="checkbox" class="checkbox" value="F">
-            <label class="checkbox-label">F</label>
+            <input type="radio" name="gender" value="M" class="radio"/>
+            <label class="radio-label">Male</label>
+            <input type="radio" name="gender" value="F" class="radio"/>
+            <label class="radio-label">Female</label>
           </div>
-          <div class="form-group">
+          <div class="form-group" data-gjs-type="form group">
             <label class="label">Message</label>
-            <textarea class="textarea"></textarea>
+            <textarea name="message" class="textarea"></textarea>
           </div>
-          <div class="form-group">
+          <div class="form-group" data-gjs-type="form group">
             <button type="submit" class="button">Send</button>
           </div>
         </form>

@@ -38,6 +38,7 @@ export default (editor, opts = {}) => {
     labelOption: 'Option',
     labelStateNormal: 'Normal',
     labelStateSuccess: 'Success',
+    labelTraitRedirect: 'Redirect',
     labelStateError: 'Error',
     category: 'Forms',
     ...opts

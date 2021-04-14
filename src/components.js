@@ -290,8 +290,6 @@ export default function(editor, opt = {}) {
 
 
 
-
-
   // CHECKBOX
   domc.addType('checkbox', {
     model: defaultModel.extend({
@@ -359,53 +357,6 @@ export default function(editor, opt = {}) {
        },
      }),
      view: checkType.view,
-  });
-
-
-  domc.addType('button', {
-    extend: defaultModel,
-    isComponent: el => el.tagName == 'BUTTON',
-
-    model: {
-      defaults: {
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2m0 2v14H5V5h14z"></path></svg>`,
-        tagName: 'button',
-        attributes: { type: 'button' },
-        traits: [
-          {
-            name: 'text',
-            changeProp: true,
-          }, {
-            type: 'select',
-            name: 'type',
-            options: [
-              { value: 'button' },
-              { value: 'submit' },
-              { value: 'reset' },
-            ]
-        }]
-      },
-
-      init() {
-        const comps = this.components();
-        const tChild =  comps.length === 1 && comps.models[0];
-        const chCnt = (tChild && tChild.is('textnode') && tChild.get('content')) || '';
-        const text = chCnt || this.get('text');
-        this.set({ text });
-        this.on('change:text', this.__onTextChange);
-        (text !== chCnt) && this.__onTextChange();
-      },
-
-      __onTextChange() {
-        this.components(this.get('text'));
-      },
-    },
-
-    view: {
-      events: {
-        click: e => e.preventDefault(),
-      },
-    },
   });
 
 

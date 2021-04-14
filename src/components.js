@@ -374,7 +374,7 @@ export default function(editor, opt = {}) {
         traits: [
           {
             name: 'text',
-            default: 'Send',
+            value: 'Send',
             changeProp: true,
           }, {
             type: 'select',

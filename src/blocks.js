@@ -40,6 +40,8 @@
           <div class="form-group" data-gjs-type="form group">
             <button type="submit" class="button"></button>
           </div>
+          <div data-form-state="success" class="state-success" >Thanks! We received your request</div>
+          <div data-form-state="error" class="state-error" >An error occurred on processing your request, try again!</div>
         </form>
       `,
     });

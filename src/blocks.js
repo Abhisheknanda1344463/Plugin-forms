@@ -38,7 +38,7 @@
             <textarea name="message" class="textarea"></textarea>
           </div>
           <div class="form-group" data-gjs-type="form group">
-            <button type="submit" class="button">Send/button>
+            <button type="submit" class="button">Send</button>
           </div>
         </form>
       `,

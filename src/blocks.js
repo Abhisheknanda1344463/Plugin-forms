@@ -100,7 +100,7 @@
       </svg>
       <div class="gjs-block-label">${c.labelButtonName}</div>`,
       category: c.category,
-      content: '<button class="button">Send</button>',
+      content: '<button class="button"></button>',
     });
   }
 

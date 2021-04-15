@@ -290,6 +290,8 @@ export default function(editor, opt = {}) {
 
 
 
+
+
   // CHECKBOX
   domc.addType('checkbox', {
     model: defaultModel.extend({
@@ -358,8 +360,6 @@ export default function(editor, opt = {}) {
      }),
      view: checkType.view,
   });
-
-
   // LABEL
   domc.addType('label', {
     model: textModel.extend({
